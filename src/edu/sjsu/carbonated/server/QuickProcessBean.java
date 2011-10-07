@@ -1,5 +1,6 @@
 package edu.sjsu.carbonated.server;
 
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
 /**
@@ -7,6 +8,7 @@ import javax.ejb.Stateless;
  * Session Bean implementation class QuickProcessBean
  */
 @Stateless
+@Remote(QuickProcessBeanRemote.class)
 public class QuickProcessBean implements QuickProcessBeanRemote {
 
     /**
@@ -16,7 +18,6 @@ public class QuickProcessBean implements QuickProcessBeanRemote {
         // TODO Auto-generated constructor stub
     }
 
-	@Override
 	public String remoteJSONConvert(String filename) {
 		// TODO Auto-generated method stub
 		return "testing ant build";

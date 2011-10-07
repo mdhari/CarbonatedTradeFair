@@ -6,7 +6,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.rmi.PortableRemoteObject;
 
-import edu.sjsu.carbonated.server.QuickProcessBean;
+import edu.sjsu.carbonated.server.QuickProcessBeanRemote;
 
 public class Client {
 	String endpoint; // localhost:1099
@@ -45,8 +45,8 @@ public class Client {
 			long st = System.currentTimeMillis();
 			Context ctx = getContext();
 			Object ref = ctx.lookup("QuickProcessBean/remote");
-			QuickProcessBean svr = (QuickProcessBean) PortableRemoteObject.narrow(ref,
-					QuickProcessBean.class);
+			QuickProcessBeanRemote svr = (QuickProcessBeanRemote) PortableRemoteObject.narrow(ref,
+					QuickProcessBeanRemote.class);
 			long mt = System.currentTimeMillis();
 			System.out.println("From the server: " + svr.remoteJSONConvert(msg));
 			long et = System.currentTimeMillis();
