@@ -1,0 +1,60 @@
+<project name="CarbonatedTradeFair" default="jar" basedir=".">
+
+	<target name="init">
+		<property name="server.name" value="carbonatedtradefairserver"/>
+		<property name="client.name" value="carbonatedtradefairclient"/>
+		<property name="src.dir" value="${basedir}/src"/>
+		<property name="classes.dir" value="${basedir}/classes" />
+		<property name="out.dir" value="${basedir}/build" />
+		<property name="jboss.home" value="/opt/jboss" />
+		<property name="jboss.deploy" value="${jboss.home}/server/default/deploy" />
+	</target>
+	
+	<target name="build" depends="init">
+		<mkdir dir="${classes.dir}"/>
+		<mkdir dir="${out.dir}"/>
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" >
+		    <classpath>
+		    	<!-- This is actually getting the ejb jar file -->
+				<fileset dir="${jboss.home}/client">
+					<include name="**/*.jar"/>
+				</fileset>
+		    </classpath>
+		</javac>
+	</target>
+	
+	<target name="jar" depends="build">
+		<mkdir dir="${out.dir}" />
+		<!-- Build the server w/o the client class files -->
+		<jar jarfile="${out.dir}/${server.name}.jar">
+			<fileset dir="${classes.dir}">
+				<include name="**/server/**" />
+			</fileset>
+		</jar>
+		
+		<!-- Build the clientm needs all class files -->
+		<jar jarfile="${out.dir}/${client.name}.jar">
+			<fileset dir="${classes.dir}">
+			</fileset>
+		</jar>
+	</target>
+	
+	<target name="deploy" depends="clean,jar">
+		<copy file="${out.dir}/${server.name}.jar" toDir="${jboss.deploy}" />
+	</target>
+	
+	<target name="demo" depends="init">
+		<java classname="edu.sjsu.carbonated.client.Client">
+			<classpath>
+				<pathelement location="${jboss.home}/client/jbossall-client.jar"/>
+				<pathelement location="${out.dir}/${client.name}.jar"/>
+			</classpath>
+		</java>
+	</target>
+	
+	<target name="clean" depends="init">
+		<delete dir="${classes.dir}"  />
+		<delete dir="${out.dir}"  />
+	</target>
+	
+</project>
