@@ -29,10 +29,12 @@
 		<jar jarfile="${out.dir}/${server.name}.jar">
 			<fileset dir="${classes.dir}">
 				<include name="**/server/**" />
+				<!-- include the org.json class files in this jar as well -->
+				<include name="**/json/**" />				
 			</fileset>
 		</jar>
 		
-		<!-- Build the clientm needs all class files -->
+		<!-- Build the client needs all class files -->
 		<jar jarfile="${out.dir}/${client.name}.jar">
 			<fileset dir="${classes.dir}">
 			</fileset>
