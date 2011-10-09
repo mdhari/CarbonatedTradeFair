@@ -1,5 +1,8 @@
 package edu.sjsu.carbonated.server;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 import javax.ejb.Stateless;
 
 /**
@@ -18,7 +21,7 @@ public class QuickProcessBean implements QuickProcessBeanRemote {
 	public String remoteJSONConvert(String filename) {
 		
 		CSVtoJSON csvToJson = new CSVtoJSON();
-		return "CSV class created!";
+		return csvToJson.convertCSVFile(filename);
 
 	}
     

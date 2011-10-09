@@ -65,7 +65,7 @@ public class Client {
 	 */
 	public static void main(String[] args) {
 		Client clt = new Client("localhost:1099");
-		clt.saySomething("Hello I'm a test");
+		clt.saySomething("AA.dat");
 
 	}
 
