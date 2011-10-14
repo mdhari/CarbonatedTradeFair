@@ -7,7 +7,6 @@
 		<property name="classes.dir" value="${basedir}/classes" />
 		<property name="out.dir" value="${basedir}/build" />
 		<property name="jboss.home" value="/opt/jboss" />
-		<property name="apache.http" value="/Library/jarDownloads/apachehttp" />
 		<property name="jboss.deploy" value="${jboss.home}/server/default/deploy" />
 	</target>
 	
@@ -18,9 +17,6 @@
 		    <classpath>
 		    	<!-- This is actually getting the ejb jar file -->
 				<fileset dir="${jboss.home}/client">
-					<include name="**/*.jar"/>
-				</fileset>
-				<fileset dir="${apache.http}">
 					<include name="**/*.jar"/>
 				</fileset>
 		    </classpath>

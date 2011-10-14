@@ -2,22 +2,9 @@ package edu.sjsu.carbonated.server;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.CDL;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -96,7 +83,7 @@ public class CSVtoJSON {
 			return e1.getMessage();
 		}
 
-		getGraph(fileName);
+		//getGraph(fileName);
 		
 		// return the resulting json string from the json object
 		return "{\"" + fileName.split("\\.")[0] + "\":"
@@ -115,78 +102,78 @@ public class CSVtoJSON {
 //		} 
 	}
 	
-	public void getGraph(String fileName){
-		//http://www.androidsnippets.com/executing-a-http-post-request-with-httpclient
-		
-		int numOfLinesToSkip = 11; // the reason why we skip is above
-
-		BufferedReader br = null; // We buffer to make sure the string is read fully
-		// create a file reference
-		try {
-			br = new BufferedReader(new FileReader(System.getProperty("jboss.server.temp.dir") + "/" + fileName));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		int i = -1;
-		// skip ahead 12 lines of the file
-		try {
-			while (br.ready() && i < numOfLinesToSkip) {
-				System.out.println(br.readLine());
-				i++;
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		String strBuild = "";
-		
-		int lineLimit = 150,j = 0;
-		try {
-			while(br.ready() && j < lineLimit){
-				
-				String str = br.readLine();
-				String[] strParse = str.split(",");
-				strBuild += strParse[strParse.length-1] + ",";
-				j++;
-			}
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		strBuild = strBuild.substring(0, strBuild.length()-1); // remove the ,
-		
-		HttpClient httpClient = new DefaultHttpClient();
-		HttpPost httpPost = new HttpPost("http://chart.apis.google.com/chart");
-
-		System.out.println(strBuild);
-		    // Add your data
-		    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-		    nameValuePairs.add(new BasicNameValuePair("cht","lxy"));
-		    nameValuePairs.add(new BasicNameValuePair("chd", "t:-1|"+strBuild));
-		    nameValuePairs.add(new BasicNameValuePair("chs", "440x220"));
-		    try {
-				httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-			    // Execute HTTP Post Request
-			    HttpResponse response = httpClient.execute(httpPost);
-			    
-			    response.getEntity().writeTo(new FileOutputStream(System.getProperty("jboss.server.temp.dir") + "/" + fileName + ".png") );
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		   
-
-
-	}
+//	public void getGraph(String fileName){
+//		//http://www.androidsnippets.com/executing-a-http-post-request-with-httpclient
+//		
+//		int numOfLinesToSkip = 11; // the reason why we skip is above
+//
+//		BufferedReader br = null; // We buffer to make sure the string is read fully
+//		// create a file reference
+//		try {
+//			br = new BufferedReader(new FileReader(System.getProperty("jboss.server.temp.dir") + "/" + fileName));
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		int i = -1;
+//		// skip ahead 12 lines of the file
+//		try {
+//			while (br.ready() && i < numOfLinesToSkip) {
+//				System.out.println(br.readLine());
+//				i++;
+//			}
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		String strBuild = "";
+//		
+//		int lineLimit = 150,j = 0;
+//		try {
+//			while(br.ready() && j < lineLimit){
+//				
+//				String str = br.readLine();
+//				String[] strParse = str.split(",");
+//				strBuild += strParse[strParse.length-1] + ",";
+//				j++;
+//			}
+//		} catch (IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		
+//		strBuild = strBuild.substring(0, strBuild.length()-1); // remove the ,
+//		
+//		HttpClient httpClient = new DefaultHttpClient();
+//		HttpPost httpPost = new HttpPost("http://chart.apis.google.com/chart");
+//
+//		System.out.println(strBuild);
+//		    // Add your data
+//		    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+//		    nameValuePairs.add(new BasicNameValuePair("cht","lxy"));
+//		    nameValuePairs.add(new BasicNameValuePair("chd", "t:-1|"+strBuild));
+//		    nameValuePairs.add(new BasicNameValuePair("chs", "440x220"));
+//		    try {
+//				httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+//			    // Execute HTTP Post Request
+//			    HttpResponse response = httpClient.execute(httpPost);
+//			    
+//			    response.getEntity().writeTo(new FileOutputStream(System.getProperty("jboss.server.temp.dir") + "/" + fileName + ".png") );
+//			} catch (UnsupportedEncodingException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (ClientProtocolException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		   
+//
+//
+//	}
 
 }
