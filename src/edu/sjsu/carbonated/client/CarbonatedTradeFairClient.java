@@ -7,7 +7,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.rmi.PortableRemoteObject;
 
-import edu.sjsu.carbonatd.server.ConsultantTradeInterface;
+import edu.sjsu.carbonated.server.CarbonatedTradeFairInterface;
 
 public class CarbonatedTradeFairClient {
 
@@ -52,8 +52,8 @@ public class CarbonatedTradeFairClient {
 			long st = System.currentTimeMillis();
 			Context ctx = getContext();
 			Object ref = ctx.lookup("ConsultantTradeEjb/remote");
-			ConsultantTradeInterface svr = (ConsultantTradeInterface) PortableRemoteObject.narrow(ref,
-					ConsultantTradeInterface.class);
+			CarbonatedTradeFairInterface svr = (CarbonatedTradeFairInterface) PortableRemoteObject.narrow(ref,
+					CarbonatedTradeFairInterface.class);
 			long mt = System.currentTimeMillis();
 			System.out.println("From the server: " + svr.getStockDetails(stockSyb));
 			long et = System.currentTimeMillis();
@@ -75,8 +75,8 @@ public class CarbonatedTradeFairClient {
 			long st = System.currentTimeMillis();
 			Context ctx = getContext();
 			Object ref = ctx.lookup("ConsultantTradeEjb/remote");
-			ConsultantTradeInterface svr = (ConsultantTradeInterface) PortableRemoteObject.narrow(ref,
-					ConsultantTradeInterface.class);
+			CarbonatedTradeFairInterface svr = (CarbonatedTradeFairInterface) PortableRemoteObject.narrow(ref,
+					CarbonatedTradeFairInterface.class);
 			long mt = System.currentTimeMillis();
 			System.out.println("From the server: " + svr.getStockDetailsRequestStatus(jobId));
 			long et = System.currentTimeMillis();
@@ -98,8 +98,8 @@ public class CarbonatedTradeFairClient {
 			long st = System.currentTimeMillis();
 			Context ctx = getContext();
 			Object ref = ctx.lookup("ConsultantTradeEjb/remote");
-			ConsultantTradeInterface svr = (ConsultantTradeInterface) PortableRemoteObject.narrow(ref,
-					ConsultantTradeInterface.class);
+			CarbonatedTradeFairInterface svr = (CarbonatedTradeFairInterface) PortableRemoteObject.narrow(ref,
+					CarbonatedTradeFairInterface.class);
 			long mt = System.currentTimeMillis();
 			System.out.println("From the server: " + svr.getStockAnalysis(stockSyb,startTime,endTime));
 			long et = System.currentTimeMillis();
@@ -122,8 +122,8 @@ public class CarbonatedTradeFairClient {
 			long st = System.currentTimeMillis();
 			Context ctx = getContext();
 			Object ref = ctx.lookup("ConsultantTradeEjb/remote");
-			ConsultantTradeInterface svr = (ConsultantTradeInterface) PortableRemoteObject.narrow(ref,
-					ConsultantTradeInterface.class);
+			CarbonatedTradeFairInterface svr = (CarbonatedTradeFairInterface) PortableRemoteObject.narrow(ref,
+					CarbonatedTradeFairInterface.class);
 			long mt = System.currentTimeMillis();
 			System.out.println("From the server: " + svr.getStockAnalysisRequestStatus(stockSyb));
 			long et = System.currentTimeMillis();
