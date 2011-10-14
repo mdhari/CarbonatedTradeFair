@@ -13,6 +13,7 @@ public class CarbonatedTradeFairClient {
 
 	String endpoint;
 	Context ctx;
+	String ejbLocation = "CarbonatedTradeFairEjb/remote";
 	
 	public CarbonatedTradeFairClient(String endpoint) {
 		this.endpoint = endpoint;
@@ -51,7 +52,7 @@ public class CarbonatedTradeFairClient {
 			System.out.println("Request to the server: StockSymbol" + stockSyb);
 			long st = System.currentTimeMillis();
 			Context ctx = getContext();
-			Object ref = ctx.lookup("ConsultantTradeEjb/remote");
+			Object ref = ctx.lookup(ejbLocation);
 			CarbonatedTradeFairInterface svr = (CarbonatedTradeFairInterface) PortableRemoteObject.narrow(ref,
 					CarbonatedTradeFairInterface.class);
 			long mt = System.currentTimeMillis();
@@ -74,7 +75,7 @@ public class CarbonatedTradeFairClient {
 			System.out.println("Request to the server: Job Id" + jobId);
 			long st = System.currentTimeMillis();
 			Context ctx = getContext();
-			Object ref = ctx.lookup("ConsultantTradeEjb/remote");
+			Object ref = ctx.lookup(ejbLocation);
 			CarbonatedTradeFairInterface svr = (CarbonatedTradeFairInterface) PortableRemoteObject.narrow(ref,
 					CarbonatedTradeFairInterface.class);
 			long mt = System.currentTimeMillis();
@@ -97,7 +98,7 @@ public class CarbonatedTradeFairClient {
 			System.out.println("Request to the server: " + stockSyb + "," + startTime + "," + endTime);
 			long st = System.currentTimeMillis();
 			Context ctx = getContext();
-			Object ref = ctx.lookup("ConsultantTradeEjb/remote");
+			Object ref = ctx.lookup(ejbLocation);
 			CarbonatedTradeFairInterface svr = (CarbonatedTradeFairInterface) PortableRemoteObject.narrow(ref,
 					CarbonatedTradeFairInterface.class);
 			long mt = System.currentTimeMillis();
@@ -121,7 +122,7 @@ public class CarbonatedTradeFairClient {
 			
 			long st = System.currentTimeMillis();
 			Context ctx = getContext();
-			Object ref = ctx.lookup("ConsultantTradeEjb/remote");
+			Object ref = ctx.lookup(ejbLocation);
 			CarbonatedTradeFairInterface svr = (CarbonatedTradeFairInterface) PortableRemoteObject.narrow(ref,
 					CarbonatedTradeFairInterface.class);
 			long mt = System.currentTimeMillis();
