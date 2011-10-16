@@ -18,6 +18,8 @@ public class QuickProcessBean implements QuickProcessBeanRemote {
 	public String remoteJSONConvert(String filename) {
 		
 		CSVtoJSON csvToJson = new CSVtoJSON();
+		CSVtoChart csvToChart = new CSVtoChart();
+		csvToChart.createChartImage(filename);
 		return csvToJson.convertCSVFile(filename);
 
 	}
