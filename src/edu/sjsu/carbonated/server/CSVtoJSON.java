@@ -32,7 +32,7 @@ public class CSVtoJSON {
 	 * @return JSON formatted string of {filename (without extension .dat)
 	 *         [{data}]}
 	 */
-	public String convertCSVFile(String fileName) {
+	public String convertCSVFile(String filePath) {
 
 		// HTTP/1.1 200 OK
 		// Cache-Control: private
@@ -51,7 +51,7 @@ public class CSVtoJSON {
 		BufferedReader br = null; // We buffer to make sure the string is read fully
 		// create a file reference
 		try {
-			br = new BufferedReader(new FileReader(System.getProperty("jboss.server.temp.dir") + "/" + fileName));
+			br = new BufferedReader(new FileReader(System.getProperty("jboss.server.temp.dir") + "/" + filePath));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -85,8 +85,11 @@ public class CSVtoJSON {
 
 		//getGraph(fileName);
 		
+		String stockPath = filePath.split("\\.")[0];
+		String[] fileNameSplit = stockPath.split("/");
+		
 		// return the resulting json string from the json object
-		return "{\"" + fileName.split("\\.")[0] + "\":"
+		return "{\"" + fileNameSplit[fileNameSplit.length-1] + "\":"
 				+ jsonArr.toString() + "}";
 		
 //		Logic for writing to file if needed		

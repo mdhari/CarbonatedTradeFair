@@ -119,13 +119,14 @@ public class CSVtoChart {
 	 */
 	public void createChartImage(String fileName){
 
-		String stockName = fileName.split("\\.")[0];	
+		String stockPath = fileName.split("\\.")[0];
+		String[] fileNameSplit = stockPath.split("/");
 		
 		JFreeChart jFreeChart = createChart(createDataset(fileName),
-				stockName); // the title will be the stock name only
+				fileNameSplit[fileNameSplit.length-1]); // the title will be the stock name only
 
 		try {
-			ChartUtilities.saveChartAsPNG(new File(System.getProperty("jboss.server.temp.dir") + "/" + stockName +".png"), jFreeChart,
+			ChartUtilities.saveChartAsPNG(new File(System.getProperty("jboss.server.temp.dir") + "/" + stockPath +".png"), jFreeChart,
 					600, 400);
 			
 		} catch (IOException e) {

@@ -36,6 +36,7 @@
 				<!-- include the org.json class files in this jar as well -->
 				<include name="**/json/**" />	
 			</fileset>
+			<metainf dir="${src.dir}/META-INF" /> 
 		</jar>
 		
 		<!-- Build the client needs all class files -->
