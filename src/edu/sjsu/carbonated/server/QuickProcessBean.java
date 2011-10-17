@@ -34,6 +34,7 @@ public class QuickProcessBean implements QuickProcessBeanRemote {
 	@Schedule(minute = "*/9", hour = "*")
 	public void TimeHandler(Timer timer) {
 		// this is ran for as long as the ejb is deployed
+		
 		System.out.println("QPB 12345 is pulling jobs from database...");
 
 		// go pull jobs from database
@@ -44,24 +45,24 @@ public class QuickProcessBean implements QuickProcessBeanRemote {
 		String stockRequest = "AA|Alcoa Inc. Common Stock|N|AA|N|100|N|AA";
 
 		// make a directory for each unique jobId
-		makeClientDirectory(jobId);
+		//makeClientDirectory(jobId);
 
 		// call Perlexecute
-		getCSV(jobId, stockRequest);
+		//getCSV(jobId, stockRequest);
 
 //		 generate JSON and images for each one
-		 CSVtoJSON csvToJson = new CSVtoJSON();
+		 //CSVtoJSON csvToJson = new CSVtoJSON();
 		
-		 String jsonResult = csvToJson.convertCSVFile(jobId + "/historic/" + stockName + ".dat");
+		 //String jsonResult = csvToJson.convertCSVFile(jobId + "/historic/" + stockName + ".dat");
 		
-		 System.out.println(jsonResult);
+		 //System.out.println(jsonResult);
 		 
-		 CSVtoChart csvToChart = new CSVtoChart();
+		 //CSVtoChart csvToChart = new CSVtoChart();
 		
-		 csvToChart.createChartImage(jobId + "/historic/" + stockName + ".dat");
+		 //csvToChart.createChartImage(jobId + "/historic/" + stockName + ".dat");
 
 		// put back into the database
-		 setClientJobStatusToDone();
+		 //setClientJobStatusToDone();
 
 	}
 

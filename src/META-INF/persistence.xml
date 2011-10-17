@@ -1,31 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="1.0"
-    xmlns="http://java.sun.com/xml/ns/persistence"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
-    http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
-     
-    <persistence-unit name="Stocks">
-    <jta-data-source>java:Stocks</jta-data-source>
-    
-    
-        <class>Request</class>
-
-<!--
-<property name="hibernate.ejb.cfgfile" value="/hibernate.cfg.xml"/>
-<property name="hibernate.hbm2ddl.auto" value="create"/>
--->
-    <properties>
-        <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-        <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/testDB" />
-        <property name="javax.persistence.jdbc.user" value="root" />
-        <property name="javax.persistence.jdbc.password" value="root" /> 
-        <property name="hibernate.hbm2ddl.auto" value="create"/>
-        <property name="hibernate.show_sql" value="true"/>
-        
-    </properties>
-
-    </persistence-unit>
-    
-     
+	xmlns="http://java.sun.com/xml/ns/persistence">
+	<persistence-unit name="jobstorage">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>edu.sjsu.carbonated.server.Request</class>
+		<properties>
+			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/jobstore" />
+			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+			<property name="hibernate.connection.password" value="" />
+			<property name="hibernate.connection.username" value="root" />
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+		</properties>
+	</persistence-unit>
 </persistence>
