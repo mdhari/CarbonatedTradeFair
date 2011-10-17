@@ -45,7 +45,7 @@ public class RequestManager {
 	 */
 	public void addRequest(String requestType, String requestBody){
 		
-		initEntityManager();
+		/*initEntityManager();
 		
 		em.getTransaction().begin();
 
@@ -54,7 +54,7 @@ public class RequestManager {
 		em.persist(req);
 		em.getTransaction().commit();
 		
-		closeEntityManager();
+		closeEntityManager();*/
 	}
 
 	private void read() {

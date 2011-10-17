@@ -1,6 +1,6 @@
 package edu.sjsu.carbonated.server;
 
-import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -12,7 +12,7 @@ public class Request{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="job_id")
-	private Long jobId;
+	private int jobId;
 
 	@Column(name="request_body")
 	private String requestBody;
@@ -26,11 +26,11 @@ public class Request{
     public Request() {
     }
 
-	public Long getJobId() {
+	public int getJobId() {
 		return this.jobId;
 	}
 
-	public void setJobId(Long jobId) {
+	public void setJobId(int jobId) {
 		this.jobId = jobId;
 	}
 

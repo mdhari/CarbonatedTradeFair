@@ -15,7 +15,7 @@ public interface CarbonatedTradeFairInterface extends Serializable {
 	//Return Value: JSON Object String which contains either
 	//	1) If Job is done, JSON object with all the stock information
 	//	2) If job is not completed, JSON object with Job Status (Pending)
-	String getStockDetailsRequestStatus(String jobId);
+	String getStockDetailsRequestStatus(int jobId);
 	
 	
 	//This method will be used by Analytical team to get lots of data (CSV)
@@ -29,7 +29,7 @@ public interface CarbonatedTradeFairInterface extends Serializable {
 	//Return Value: JSON Object String which contains either
 	//	1) If Job is done, JSON object with Link to file and other information
 	//	2) If job is not completed, JSON object with Job Status (Pending)
-	String getStockAnalysisRequestStatus(String jobId);
+	String getStockAnalysisRequestStatus(int jobId);
 	
 	
 }

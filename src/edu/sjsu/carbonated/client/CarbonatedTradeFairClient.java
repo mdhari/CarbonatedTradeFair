@@ -49,7 +49,7 @@ public class CarbonatedTradeFairClient {
 	{
 		
 		try {
-			System.out.println("Request to the server: StockSymbol" + stockSyb);
+			System.out.println("requestStockDetails = Request to the server: StockSymbol" + stockSyb);
 			long st = System.currentTimeMillis();
 			Context ctx = getContext();
 			Object ref = ctx.lookup(ejbLocation);
@@ -68,11 +68,11 @@ public class CarbonatedTradeFairClient {
 		}
 	}
 
-	public void checkStatusStockDetails(String jobId)
+	public void checkStatusStockDetails(int jobId)
 	{
 		
 		try {
-			System.out.println("Request to the server: Job Id" + jobId);
+			System.out.println("checkStatusStockDetails = Request to the server: Job Id" + jobId);
 			long st = System.currentTimeMillis();
 			Context ctx = getContext();
 			Object ref = ctx.lookup(ejbLocation);
@@ -95,7 +95,7 @@ public class CarbonatedTradeFairClient {
 	{
 		
 		try {
-			System.out.println("Request to the server: " + stockSyb + "," + startTime + "," + endTime);
+			System.out.println("requestStockAnalysis = Request to the server: " + stockSyb + "," + startTime + "," + endTime);
 			long st = System.currentTimeMillis();
 			Context ctx = getContext();
 			Object ref = ctx.lookup(ejbLocation);
@@ -114,11 +114,11 @@ public class CarbonatedTradeFairClient {
 		}
 	}
 	
-	public void checkStatusStockAnalysis(String stockSyb)
+	public void checkStatusStockAnalysis(int jobID)
 	{
 		
 		try {
-			System.out.println("Request to the server: StockSymbol" + stockSyb);
+			System.out.println("checkStatusStockAnalysis = Request to the server: StockSymbol" + jobID);
 			
 			long st = System.currentTimeMillis();
 			Context ctx = getContext();
@@ -126,7 +126,7 @@ public class CarbonatedTradeFairClient {
 			CarbonatedTradeFairInterface svr = (CarbonatedTradeFairInterface) PortableRemoteObject.narrow(ref,
 					CarbonatedTradeFairInterface.class);
 			long mt = System.currentTimeMillis();
-			System.out.println("From the server: " + svr.getStockAnalysisRequestStatus(stockSyb));
+			System.out.println("From the server: " + svr.getStockAnalysisRequestStatus(jobID));
 			long et = System.currentTimeMillis();
 
 			System.out.println("Connect: " + (mt - st));
@@ -142,10 +142,10 @@ public class CarbonatedTradeFairClient {
 		CarbonatedTradeFairClient clt = new CarbonatedTradeFairClient("localhost:1099");
 		
 		clt.requestStockDetails("MSFT");
-		clt.checkStatusStockDetails("1234");
+		clt.checkStatusStockDetails(1);
 		
 		clt.requestStockAnalysis("MSFT,GOOG", "01/02/2000", "01/02/2011");
-		clt.checkStatusStockAnalysis("5678");
+		clt.checkStatusStockAnalysis(5);
 
 	}
 

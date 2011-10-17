@@ -20,35 +20,79 @@ public class CarbonatedTradeFairEjb implements CarbonatedTradeFairInterface {
 	public String getStockDetails(String stockSymbol) {
 		System.out.println("getStockDetails: " + stockSymbol );
 		
-		//Create RequestObject
-		Request aRequest = new Request();
-		aRequest.setRequestBody(stockSymbol);
-		aRequest.setRequestType(0);
-		aRequest.setRequestStatus(0);
-		em.persist(aRequest);
+		if(!stockSymbol.isEmpty())
+		{
+			//Create RequestObject
+			Request aRequest = new Request();
+			aRequest.setRequestBody(stockSymbol);
+			aRequest.setRequestType(0);
+			aRequest.setRequestStatus(0);
+			em.persist(aRequest);
+			
+			return "Thank you for your request. Your request id is" + aRequest.getJobId();
+			
+		}else{
+			return "Syntex error with your Request";
+		}
+	
 		
-		return "Thank you for your request";
 	}
 
 
-	public String getStockDetailsRequestStatus(String jobId) {
+	public String getStockDetailsRequestStatus(int jobId) {
 		System.out.println("getStockRequestStatus: " + jobId );
-		//TODO: validate Input
-		//TODO: Store Request in DB using JPA
-		return "Your Request # " + jobId + "is Pending";
+		int job_id;
+		
+		if(jobId != 0)
+		{
+			//Create RequestObject
+			Request aRequest = new Request();
+			
+			aRequest = em.find(Request.class, 1);
+			
+			if(aRequest.getRequestStatus() ==  1)
+			{
+				return "Your request is completed." ;
+				//TODO: Return JSON
+			}else{
+				return "Your request is still pending. Please check back. Thanks";
+			}
+			
+			
+		}else{
+			return "Syntex error with your Request";
+		}
+	
+		
 	}
 
 
 	public String getStockAnalysis(String listOfStockSymbols, String startDate,	String endDate) {
 		System.out.println("getStockAnalysis: " + listOfStockSymbols + "," + startDate + "," + endDate);
-		//TODO: validate Input
-		//TODO: Store Request in DB using JPA
-		return "Thank you for your request";
+
+		if(! listOfStockSymbols.isEmpty() && !startDate.isEmpty() && !endDate.isEmpty() )
+		{
+			//MSFT-GOOG-ATT,01/02/2010,01/02/2011
+			String requestBody = listOfStockSymbols + "," + startDate + "," + endDate;
+			
+			Request aRequest = new Request();
+			aRequest.setRequestBody(requestBody);
+			aRequest.setRequestType(0);
+			aRequest.setRequestStatus(0);
+			em.persist(aRequest);
+			
+			return "Thank you for your request. Your request id is" + aRequest.getJobId();
+			
+		}else{
+			
+			return "Syntex error with your Request";
+		}
+		
 	}
 
 
 
-	public String getStockAnalysisRequestStatus(String jobId) {
+	public String getStockAnalysisRequestStatus(int jobId) {
 		System.out.println("getStrockAnalysisStatus: " + jobId );
 		//TODO: validate Input
 		//TODO: Store Request in DB using JPA
