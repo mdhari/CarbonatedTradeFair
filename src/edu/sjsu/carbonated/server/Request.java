@@ -1,49 +1,70 @@
 package edu.sjsu.carbonated.server;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 
 @Entity
-@Table(name = "JobRequests")
-public class Request implements Serializable {
+@Table(name="request")
+public class Request{
 
-	private static final long serialVersionUID = 5908209142947649298L;
 
 	@Id
-	@GeneratedValue
-	private int id;
-	
-	@Basic
-	private String request_type;
-	
-	@Basic
-	private String request_body;
-	
-	@Basic
-	private String request_status;
-	
-	@Basic
-	private String request_result;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="job_id")
+	private Long jobId;
 
-	public Request() {
+	@Column(name="request_body")
+	private String requestBody;
+
+	@Column(name="request_status")
+	private int requestStatus;
+
+	@Column(name="request_type")
+	private int requestType;
+
+    public Request() {
+    }
+
+	public Long getJobId() {
+		return this.jobId;
 	}
 
-	public Request(String request_type, String request_body, String request_status) {
-		this.request_type = request_type;
-		this.request_body = request_body;
-		this.request_status = request_status;
-		
+	public void setJobId(Long jobId) {
+		this.jobId = jobId;
 	}
-	
+
+	public String getRequestBody() {
+		return this.requestBody;
+	}
+
+	public void setRequestBody(String requestBody) {
+		this.requestBody = requestBody;
+	}
+
+	public int getRequestStatus() {
+		return this.requestStatus;
+	}
+
+	public void setRequestStatus(int requestStatus) {
+		this.requestStatus = requestStatus;
+	}
+
+	public int getRequestType() {
+		return this.requestType;
+	}
+
+	public void setRequestType(int requestType) {
+		this.requestType = requestType;
+	}
+
 	@Override
 	public String toString() {
-		return "Request [id=" + id + ", request_type=" + request_type
-				+ ", request_body=" + request_body + ", request_status="
-				+ request_status + ", request_result=" + request_result + "]";
+		return "Request [jobId=" + jobId + ", requestBody=" + requestBody
+				+ ", requestStatus=" + requestStatus + ", requestType="
+				+ requestType + "]";
 	}
+	
+	
 
 }
