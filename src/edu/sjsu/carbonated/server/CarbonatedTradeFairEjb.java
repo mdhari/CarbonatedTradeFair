@@ -3,36 +3,30 @@ package edu.sjsu.carbonated.server;
 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @Stateless
 @Remote(CarbonatedTradeFairInterface.class)
 public class CarbonatedTradeFairEjb implements CarbonatedTradeFairInterface {
 
+	
+	@PersistenceContext(unitName="CabotUnitInfo")
+	EntityManager em;
+	
 	private static final long serialVersionUID = 1L;
 
 	//Method to get StockDetails and return details with pictures
 	public String getStockDetails(String stockSymbol) {
 		System.out.println("getStockDetails: " + stockSymbol );
-//		EntityManager em = Persistence
-//        .createEntityManagerFactory("Stocks")
-//        .createEntityManager();
-//
-//        EntityTransaction t = em.getTransaction();
-//       
-//        t.begin();
-//
-//        Request request = new Request();
-//
-//        request.setRequest_Body(stockSymbol);
-//
-//        request.setRequest_Status(0);
-//
-//        request.setRequest_Type(1);
-//
-//        em.persist(request);
-//        t.commit();
-		//TODO: validate Input
-		//TODO: Store Request in DB using JPA
+		
+		//Create RequestObject
+		Request aRequest = new Request();
+		aRequest.setRequestBody(stockSymbol);
+		aRequest.setRequestType(0);
+		aRequest.setRequestStatus(0);
+		em.persist(aRequest);
+		
 		return "Thank you for your request";
 	}
 
