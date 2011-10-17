@@ -1,6 +1,8 @@
 package edu.sjsu.carbonated.server;
 
 
+import java.io.File;
+
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -39,6 +41,7 @@ public class CarbonatedTradeFairEjb implements CarbonatedTradeFairInterface {
 	}
 
 
+	
 	public String getStockDetailsRequestStatus(int jobId) {
 		System.out.println("getStockRequestStatus: " + jobId );
 		int job_id;
@@ -48,14 +51,14 @@ public class CarbonatedTradeFairEjb implements CarbonatedTradeFairInterface {
 			//Create RequestObject
 			Request aRequest = new Request();
 			
-			aRequest = em.find(Request.class, 1);
+			aRequest = em.find(Request.class, jobId);
 			
 			if(aRequest.getRequestStatus() ==  1)
 			{
-				return "Your request is completed." ;
-				//TODO: Return JSON
+				return aRequest.getResult();
+
 			}else{
-				return "Your request is still pending. Please check back. Thanks";
+				return "Your request is still pending";
 			}
 			
 			
@@ -94,9 +97,30 @@ public class CarbonatedTradeFairEjb implements CarbonatedTradeFairInterface {
 
 	public String getStockAnalysisRequestStatus(int jobId) {
 		System.out.println("getStrockAnalysisStatus: " + jobId );
-		//TODO: validate Input
-		//TODO: Store Request in DB using JPA
-		return "Your Request # " + jobId + "is Pending";
+		
+		int job_id;
+		
+		if(jobId != 0)
+		{
+			//Create RequestObject
+			Request aRequest = new Request();
+			
+			aRequest = em.find(Request.class, 1);
+			
+			if(aRequest.getRequestStatus() ==  1)
+			{
+				return "Your request has been completed." ;
+				//TODO: Return JSON
+			}else{
+				return "Your request is still pending";
+			}
+			
+			
+		}else{
+			return "Syntex error with your Request";
+		}
+	
+
 	}
 	
 	

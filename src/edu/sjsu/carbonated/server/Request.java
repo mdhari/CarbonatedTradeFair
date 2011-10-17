@@ -22,6 +22,9 @@ public class Request{
 
 	@Column(name="request_type")
 	private int requestType;
+	
+	@Column(name="result")
+	private String result;
 
     public Request() {
     }
@@ -58,11 +61,19 @@ public class Request{
 		this.requestType = requestType;
 	}
 
+	public String getResult() {
+		return this.result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
+	}
+	
 	@Override
 	public String toString() {
 		return "Request [jobId=" + jobId + ", requestBody=" + requestBody
 				+ ", requestStatus=" + requestStatus + ", requestType="
-				+ requestType + "]";
+				+ requestType + ", result=" + result + "]";
 	}
 	
 	
