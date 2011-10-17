@@ -6,22 +6,25 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="request")
+//@NamedQueries({
+//		@NamedQuery(name = "getQPBJobs", query = "SELECT r from carbonatedtrademdb.request r WHERE r.request_type=0")})
+		//@NamedQuery(name = "findEntries", query = "SELECT e from LogEntry e WHERE e.parent = :parent") })
 public class Request{
 
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="job_id")
-	private int jobId;
+	public int jobId;
 
 	@Column(name="request_body")
-	private String requestBody;
+	public String requestBody;
 
 	@Column(name="request_status")
-	private int requestStatus;
+	public int requestStatus;
 
 	@Column(name="request_type")
-	private int requestType;
+	public int requestType;
 
     public Request() {
     }

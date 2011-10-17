@@ -64,7 +64,7 @@ public class CSVtoJSON {
 		// skip ahead 11 lines of the file
 		try {
 			while (br.ready() && i < numOfLinesToSkip) {
-				System.out.println(br.readLine());
+				//System.out.println(br.readLine());
 				i++;
 			}
 		} catch (IOException e) {

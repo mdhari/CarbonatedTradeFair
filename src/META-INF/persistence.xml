@@ -4,11 +4,11 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
    <persistence-unit name="CabotUnitInfo">
-      <jta-data-source>java:/MySqlDSCbot</jta-data-source>
+      <jta-data-source>java:/MySqlDSbot</jta-data-source>
       	<class>edu.sjsu.carbonated.server.Request</class>
       <properties>
         <property name="hibernate.hbm2ddl.auto" value="update" />
-         <!--  property name="hibernate.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect"/ -->
+         <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect"/>
       </properties>
    </persistence-unit>
 </persistence>
