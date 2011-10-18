@@ -3,6 +3,7 @@ package edu.sjsu.carbonated.server;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import org.json.CDL;
@@ -55,6 +56,7 @@ public class CSVtoJSON {
 			br = new BufferedReader(new FileReader(System.getProperty("jboss.server.temp.dir") + "/" + filePath));
 			while (br.ready() && i < numOfLinesToSkip) {
 				//System.out.println(br.readLine());
+				br.readLine();
 				i++;
 			}
 			
@@ -86,8 +88,17 @@ public class CSVtoJSON {
 		
 		
 		// return the resulting json string from the json object
-		return "{\"" + fileNameSplit[fileNameSplit.length-1] + "\":"
-				+ jsonArr.toString() + "}";
+		try {
+			FileWriter fout = new FileWriter(System.getProperty("jboss.server.temp.dir") + "/" + filePath.split("\\.")[0] + ".json");
+			fout.write("{\"" + fileNameSplit[fileNameSplit.length-1] + "\":"
+					+ jsonArr.toString() + "}");
+			fout.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return System.getProperty("jboss.server.temp.dir") + "/" + filePath.split("\\.")[0] + ".json";
 		
 //		Logic for writing to file if needed		
 //		String tempFolderPath = System.getProperty("jboss.server.temp.dir");  

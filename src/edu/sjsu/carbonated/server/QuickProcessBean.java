@@ -154,7 +154,8 @@ public class QuickProcessBean implements QuickProcessBeanRemote {
 		aRequest = em.find(Request.class, jobId);
 		
 		aRequest.setRequestStatus(1);
-		//aRequest.setResult(jsonResult);
+		//System.out.println(jsonResult);
+		aRequest.setResult(jsonResult);
 		
 		em.persist(aRequest);
 		
