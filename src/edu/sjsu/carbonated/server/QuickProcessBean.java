@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.ejb.Schedule;
+import javax.ejb.Singleton;
 import javax.ejb.Stateless;
 import javax.ejb.Timer;
 import javax.persistence.EntityManager;
@@ -19,7 +20,7 @@ import javax.persistence.Query;
  * @author Michael Hari Session Bean implementation class QuickProcessBean
  */
 
-@Stateless
+@Singleton
 public class QuickProcessBean implements QuickProcessBeanRemote {
 	@PersistenceContext(unitName="CabotUnitInfo")
 	EntityManager em;
@@ -44,49 +45,48 @@ public class QuickProcessBean implements QuickProcessBeanRemote {
 	@Schedule(minute = "*/1", hour = "*")
 	public void TimeHandler(Timer timer) {
 		// this is ran for as long as the ejb is deployed
+		CSVtoJSON csvToJson = new CSVtoJSON();
+		CSVtoChart csvToChart = new CSVtoChart();
 		
-//		Request aRequest = new Request();
-//		aRequest.setRequestBody("asdf");
-//		aRequest.setRequestType(1);
-//		aRequest.setRequestStatus(0);
-//		em.persist(aRequest);
-		
-		//RequestManager reqMan = new RequestManager();
-		
-		//reqMan.addRequest("QPB", "AA|Alcoa Inc. Common Stock|N|AA|N|100|N|AA");
-		
-		System.out.println("QPB would be pulling jobs from database...");
+		System.out.println("QPB is pulling jobs from database...");
 
 		// go pull jobs from database
 		List<Request> jobs = pullJobs();
 		
+		if(jobs.size() == 0){
+			System.out.println("No Jobs for QPB");
+			return;
+		}
+		
+		System.out.println("Jobs found for QPB");
+		
+		int limit = 0; // set a limit of pulling 20 jobs
 		for(int i = 0; i < jobs.size(); i++){
-			System.out.println(jobs.get(i).getJobId());
+
+			if(limit == 20){
+				break;
+			}
+			
+			Request req = jobs.get(i);
+			
+			// make a directory for each unique jobId
+			makeClientDirectory(String.valueOf(req.getJobId()));
+
+			// call Perlexecute
+			getCSV(String.valueOf(req.getJobId()), req.getRequestBody());
+		
+			String jsonResult = csvToJson.convertCSVFile(String.valueOf(req.getJobId()) + "/historic/" + req.getRequestBody().split("\\|")[0] + ".dat");
+			
+
+			csvToChart.createChartImage(String.valueOf(req.getJobId()) + "/historic/" + req.getRequestBody().split("\\|")[0] + ".dat");
+
+			// put back into the database
+			 setClientJobStatusToDone(req.getJobId());
+			 
+			 limit++;
 		}
 
-		String jobId = "5";
-		String stockName = "AA";
-		String stockRequest = "AA|Alcoa Inc. Common Stock|N|AA|N|100|N|AA";
 
-		// make a directory for each unique jobId
-		makeClientDirectory(jobId);
-
-		// call Perlexecute
-		getCSV(jobId, stockRequest);
-
-//		 generate JSON and images for each one
-		 CSVtoJSON csvToJson = new CSVtoJSON();
-//		
-		 String jsonResult = csvToJson.convertCSVFile(jobId + "/historic/" + stockName + ".dat");
-		
-		 //System.out.println(jsonResult);
-//		 
-		 CSVtoChart csvToChart = new CSVtoChart();
-//		
-		 csvToChart.createChartImage(jobId + "/historic/" + stockName + ".dat");
-
-		// put back into the database
-		 setClientJobStatusToDone();
 
 	}
 
@@ -101,7 +101,7 @@ public class QuickProcessBean implements QuickProcessBeanRemote {
 		// a dynamic query using JPQL
 		
 	//	Query q = em.createNativeQuery("SELECT * FROM carbonatedtrademdb.request");
-		Query q = em.createQuery("select r from edu.sjsu.carbonated.server.Request r where r.requestType=0");
+		Query q = em.createQuery("select r from edu.sjsu.carbonated.server.Request r where r.requestType=0 and r.requestStatus=0");
 
 		List<Request> r = q.getResultList();
 
@@ -147,7 +147,15 @@ public class QuickProcessBean implements QuickProcessBeanRemote {
 
 	}
 	
-	private void setClientJobStatusToDone(){
+	private void setClientJobStatusToDone(int jobId){
+		//Create RequestObject
+		Request aRequest = new Request();
+		
+		aRequest = em.find(Request.class, jobId);
+		
+		aRequest.setRequestStatus(1);
+		
+		em.persist(aRequest);
 		
 	}
 
