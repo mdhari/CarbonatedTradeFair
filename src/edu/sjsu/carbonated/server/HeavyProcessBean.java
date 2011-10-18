@@ -57,10 +57,9 @@ public class HeavyProcessBean implements HeavyProcessBeanRemote {
 
 		try {
 
-			FileWriter file = new FileWriter(
-					"/jboss.server.temp.dir/jobId.json");
+			FileWriter file = new FileWriter(System.getProperty("jboss.server.temp.dir") + "/jobId.json");
 			file.write(jsonResult.toString());
-			file.flush();
+			//file.flush();
 			file.close();
 
 		} catch (IOException e) {
