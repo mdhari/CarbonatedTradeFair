@@ -7,9 +7,12 @@
       <jta-data-source>java:/MySqlDSbot</jta-data-source>
       	<class>edu.sjsu.carbonated.server.Request</class>
       <properties>
-        <property name="hibernate.hbm2ddl.auto" value="update" />
+      <property name="hibernate.hbm2ddl.auto" value="create" />
+      <property name="hibernate.hbm2ddl.auto" value="update" /><!--
+    
+        
          <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect"/>
-      </properties>
+      --></properties>
    </persistence-unit>
 </persistence>
 

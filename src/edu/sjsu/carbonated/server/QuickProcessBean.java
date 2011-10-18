@@ -81,7 +81,7 @@ public class QuickProcessBean implements QuickProcessBeanRemote {
 			csvToChart.createChartImage(String.valueOf(req.getJobId()) + "/historic/" + req.getRequestBody().split("\\|")[0] + ".dat");
 
 			// put back into the database
-			 setClientJobStatusToDone(req.getJobId());
+			 setClientJobStatusToDone(req.getJobId(), jsonResult);
 			 
 			 limit++;
 		}
@@ -147,13 +147,14 @@ public class QuickProcessBean implements QuickProcessBeanRemote {
 
 	}
 	
-	private void setClientJobStatusToDone(int jobId){
+	private void setClientJobStatusToDone(int jobId, String jsonResult){
 		//Create RequestObject
 		Request aRequest = new Request();
 		
 		aRequest = em.find(Request.class, jobId);
 		
 		aRequest.setRequestStatus(1);
+		//aRequest.setResult(jsonResult);
 		
 		em.persist(aRequest);
 		

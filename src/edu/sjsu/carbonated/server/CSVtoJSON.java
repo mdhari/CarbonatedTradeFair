@@ -46,32 +46,28 @@ public class CSVtoJSON {
 		// P3P: policyref="http://info.yahoo.com/w3c/p3p.xml",
 		// CP="CAO DSP COR CUR ADM DEV TAI PSA PSD IVAi IVDi CONi TELo OTPi OUR DELi SAMi OTRi UNRi PUBi IND PHY ONL UNI PUR FIN COM NAV INT DEM CNT STA POL HEA PRE LOC GOV"
 
-		int numOfLinesToSkip = 11; // the reason why we skip is above
+		int numOfLinesToSkip = 12; // the reason why we skip is above
 
 		BufferedReader br = null; // We buffer to make sure the string is read fully
+		int i = 0;
 		// create a file reference
 		try {
 			br = new BufferedReader(new FileReader(System.getProperty("jboss.server.temp.dir") + "/" + filePath));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return e.getMessage();
-		}
-
-		JSONArray jsonArr = null;
-
-		int i = 0;
-		// skip ahead 11 lines of the file
-		try {
 			while (br.ready() && i < numOfLinesToSkip) {
 				//System.out.println(br.readLine());
 				i++;
 			}
-		} catch (IOException e) {
+			
+		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return e.getMessage();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
+		JSONArray jsonArr = null;
 		
 		// convert csv to json object
 		try {
@@ -87,6 +83,7 @@ public class CSVtoJSON {
 		
 		String stockPath = filePath.split("\\.")[0];
 		String[] fileNameSplit = stockPath.split("/");
+		
 		
 		// return the resulting json string from the json object
 		return "{\"" + fileNameSplit[fileNameSplit.length-1] + "\":"

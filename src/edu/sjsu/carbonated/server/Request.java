@@ -1,7 +1,14 @@
 package edu.sjsu.carbonated.server;
 
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Table;
 
 
 @Entity
@@ -23,7 +30,8 @@ public class Request{
 	@Column(name="request_type")
 	private int requestType;
 	
-	@Column(name="result")
+	@Lob
+	@Column(name="result", length=Integer.MAX_VALUE)
 	private String result;
 
     public Request() {
