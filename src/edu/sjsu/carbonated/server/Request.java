@@ -6,25 +6,25 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="request")
-//@NamedQueries({
-//		@NamedQuery(name = "getQPBJobs", query = "SELECT r from carbonatedtrademdb.request r WHERE r.request_type=0")})
-		//@NamedQuery(name = "findEntries", query = "SELECT e from LogEntry e WHERE e.parent = :parent") })
 public class Request{
 
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="job_id")
-	public int jobId;
+	private int jobId;
 
 	@Column(name="request_body")
-	public String requestBody;
+	private String requestBody;
 
 	@Column(name="request_status")
-	public int requestStatus;
+	private int requestStatus;
 
 	@Column(name="request_type")
-	public int requestType;
+	private int requestType;
+	
+	@Column(name="result")
+	private String result;
 
     public Request() {
     }
@@ -61,11 +61,19 @@ public class Request{
 		this.requestType = requestType;
 	}
 
+	public String getResult() {
+		return this.result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
+	}
+	
 	@Override
 	public String toString() {
 		return "Request [jobId=" + jobId + ", requestBody=" + requestBody
 				+ ", requestStatus=" + requestStatus + ", requestType="
-				+ requestType + "]";
+				+ requestType + ", result=" + result + "]";
 	}
 	
 	
