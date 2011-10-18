@@ -31,7 +31,7 @@ public class CarbonatedTradeFairEjb implements CarbonatedTradeFairInterface {
 			aRequest.setRequestStatus(0);
 			em.persist(aRequest);
 			
-			return "Thank you for your request. Your request id is" + aRequest.getJobId();
+			return ""+aRequest.getJobId();
 			
 		}else{
 			return "Syntex error with your Request";
@@ -43,7 +43,7 @@ public class CarbonatedTradeFairEjb implements CarbonatedTradeFairInterface {
 
 	
 	public String getStockDetailsRequestStatus(int jobId) {
-		System.out.println("getStockRequestStatus: " + jobId );
+		
 		int job_id;
 		
 		if(jobId != 0)
@@ -58,7 +58,7 @@ public class CarbonatedTradeFairEjb implements CarbonatedTradeFairInterface {
 				return aRequest.getResult();
 
 			}else{
-				return "Your request is still pending";
+				return "PENDING";
 			}
 			
 			

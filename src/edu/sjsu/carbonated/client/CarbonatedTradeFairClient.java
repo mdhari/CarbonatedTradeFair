@@ -45,9 +45,9 @@ public class CarbonatedTradeFairClient {
 	}
 	
 	
-	public void requestStockDetails(String stockSyb)
+	public String requestStockDetails(String stockSyb)
 	{
-		
+		String result = "";
 		try {
 			System.out.println("requestStockDetails = Request to the server: StockSymbol" + stockSyb);
 			long st = System.currentTimeMillis();
@@ -56,21 +56,25 @@ public class CarbonatedTradeFairClient {
 			CarbonatedTradeFairInterface svr = (CarbonatedTradeFairInterface) PortableRemoteObject.narrow(ref,
 					CarbonatedTradeFairInterface.class);
 			long mt = System.currentTimeMillis();
-			System.out.println("From the server: " + svr.getStockDetails(stockSyb));
+			result =  svr.getStockDetails(stockSyb);
+			System.out.println("From the server: " + result);
 			long et = System.currentTimeMillis();
 
 			System.out.println("Connect: " + (mt - st));
 			System.out.println("Message: " + (et - mt));
 			System.out.println("Total:   " + (et - st));
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return result;
+		
 	}
 
-	public void checkStatusStockDetails(int jobId)
+	public String checkStatusStockDetails(int jobId)
 	{
-		
+		String result = "";
 		try {
 			System.out.println("checkStatusStockDetails = Request to the server: Job Id" + jobId);
 			long st = System.currentTimeMillis();
@@ -79,7 +83,9 @@ public class CarbonatedTradeFairClient {
 			CarbonatedTradeFairInterface svr = (CarbonatedTradeFairInterface) PortableRemoteObject.narrow(ref,
 					CarbonatedTradeFairInterface.class);
 			long mt = System.currentTimeMillis();
-			System.out.println("From the server: " + svr.getStockDetailsRequestStatus(jobId));
+			System.out.println("From the server: ");
+			result = svr.getStockDetailsRequestStatus(jobId);
+			System.out.println(result);
 			long et = System.currentTimeMillis();
 
 			System.out.println("Connect: " + (mt - st));
@@ -89,6 +95,8 @@ public class CarbonatedTradeFairClient {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return result;
 	}
 	
 	public void requestStockAnalysis(String stockSyb, String startTime, String endTime)
@@ -141,11 +149,31 @@ public class CarbonatedTradeFairClient {
 	public static void main(String[] args) {
 		CarbonatedTradeFairClient clt = new CarbonatedTradeFairClient("localhost:1099");
 		
-		clt.requestStockDetails("MSFT");
-		clt.checkStatusStockDetails(1);
+		String numS = clt.requestStockDetails("AA|Alcoa Inc. Common Stock|N|AA|N|100|N|AA");
+		int jobid = 0;
+		try{
+			jobid = Integer.parseInt(numS);
+		}catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
 		
-		clt.requestStockAnalysis("MSFT,GOOG", "01/02/2000", "01/02/2011");
-		clt.checkStatusStockAnalysis(5);
+		boolean processComplete = false;
+		String result = "";
+		
+		while(!processComplete)
+		{
+			result = clt.checkStatusStockDetails(jobid);
+			
+			if(!result.equals("PENDING"))
+			{
+				processComplete = true;
+			}
+		}
+		
+		
+		/*clt.requestStockAnalysis("MSFT,GOOG", "01/02/2000", "01/02/2011");
+		clt.checkStatusStockAnalysis(5);*/
 
 	}
 
