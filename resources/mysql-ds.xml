@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Deploy this file to :  C:\jboss-6.1\server\default\deploy -->
-
 
 <!-- See http://www.jboss.org/community/wiki/Multiple1PC for information about local-tx-datasource -->
 <!-- $Id: mysql-ds.xml 97536 2009-12-08 14:05:07Z jesper.pedersen $ -->
@@ -10,11 +8,11 @@ http://www.mysql.com/downloads/api-jdbc-stable.html
 
 <datasources>
   <local-tx-datasource>
-    <jndi-name>MySqlDSCbot</jndi-name>
+    <jndi-name>MySqlDSbot</jndi-name>
     <connection-url>jdbc:mysql://localhost:3306/carbonatedtrademdb</connection-url>
     <driver-class>com.mysql.jdbc.Driver</driver-class>
     <user-name>root</user-name>
-    <password></password>
+    <password>1234</password>
     <exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.MySQLExceptionSorter</exception-sorter-class-name>
     <!-- should only be used on drivers after 3.22.1 with "ping" support
     <valid-connection-checker-class-name>org.jboss.resource.adapter.jdbc.vendor.MySQLValidConnectionChecker</valid-connection-checker-class-name>
